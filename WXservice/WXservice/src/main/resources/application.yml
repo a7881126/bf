@@ -1,0 +1,87 @@
+
+
+
+
+
+#前后缀
+spring.mvc.view:
+  prefix: /WEB-INF/
+  suffix: .jsp
+
+
+
+  
+#数据库配置  
+spring: 
+  profiles:
+    active: dev  #指定环境现在为开发环境
+  http.encoding.charset: UTF-8 
+  datasource:
+    driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver  
+    url: jdbc:sqlserver://ISHARE\SQLEXPRESS:1433;DatabaseName=EBAP
+    username: sa
+    password: Aa123
+    hikari: #详细配置请访问：https://github.com/brettwooldridge/HikariCP
+    # 最小空闲连接数量
+      minimum-idle: 5   
+    #   连接池中允许的最大连接数。缺省值：10；推荐的公式：((core_count * 2) + effective_spindle_count)
+      maximum-pool-size: 30
+    #  一个连接idle状态的最大时长（毫秒），超时则被释放（retired），缺省:10分钟 
+      idleTimeout: 600000
+    # 连接只读数据库时配置为true， 保证安全
+      read-only: false
+    #   等待连接池分配连接的最大时长（毫秒），超过这个时长还没可用的连接则发生SQLException， 缺省:30秒
+      connectionTimeout: 30000
+    #  一个连接的生命时长（毫秒），超时而且没被使用则被释放（retired），缺省:30分钟，建议设置比数据库超时时长少30秒，
+      maxLifetime: 1800000   
+    # 此属性控制从池返回的连接的默认自动提交行为,默认值：true
+      auto-commit: true
+    # 连接池母子
+      #pool-name: MyHikariCP
+    # 测试语句
+      connection-test-query: SELECT 1
+
+
+
+
+
+  
+  
+     
+#  jackson:
+#    date-format: yy-MM-dd   #用字符串表示用这个格式
+#    time-zone: GMT+8
+#    serialization:
+#      write-dates-as-timestamps: false  #使用数值timestamps表示日期 
+  
+  
+#配置时间
+  
+  
+      
+#mybatis    
+mybatis:
+  configuration.map-underscore-to-camel-case: true #把数据库字段的下换线连接转成驼峰命名法
+#  type-aliases-package: org.boot.az.pojo        #用实体类配置
+#  mapper-locations: classpath:mappers/*.xml     #单独用注解上下两个无需配置
+
+ 
+
+
+
+
+#日志
+logging.path: D:/log/
+
+
+#redis配置
+#config redis
+#spring.redis.database=0
+#spring.redis.host=120.0.0.1
+#spring.redis.port=6379
+#spring.redis.jedis.pool.max-active=8
+#spring.redis.jedis.pool.max-wait=-1
+#spring.redis.jedis.pool.max-idle=8
+#spring.redis.jedis.pool.min-idle=1
+#spring.redis.timeout=0
+
