@@ -17,11 +17,59 @@ import org.apache.commons.dbutils.handlers.ArrayListHandler;
 import org.apache.commons.dbutils.handlers.BeanHandler;
 
 public class Main {
-
+	
+	public static final String PATH = "C:/EBAP/Plugins/EBAP.SalesOrderManagementPlugin/Upload/Orderfile/";
+	public static final Float LMP_0018_24_PRICE = 308F;
+	public static final Float LMP_0018_27_PRICE = 336F;
+	public static final Float LZQ01_2400_PRICE = 168F;
+	public static final Float LZQ01_2700_PRICE = 196F;
+	public static final String LMP_0018_24 = "LMP_0018_24";
+	public static final String LMP_0018_27 = "LMP_0018_27";
+	public static final String LZQ01_2400  = "LZQ01_2400";
+	public static final String LZQ01_2700  = "LZQ01_2700";
+	
+	
+	public static DataSource dataSource = DBCPUtils.getDataSource();
+	public static QueryRunner qr = new QueryRunner(dataSource);
+	
+	
+	/**
+	 * 获取ID ，单独修改
+	 * @param str
+	 * @return
+	 */
+	public static List<Object[]> getId(String str){
+		List<Object[]> result = null;
+		try {
+			result = qr.query("SELECT Id FROM  T_BOM_ItemDetail WHERE DetailPrice = 0 and Cpid = ?",
+					new ArrayListHandler(), str);		
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return result;	
+	}
+	
+	/**
+	 * 
+	 * @param result
+	 * @param price
+	 */
+	public static void updatePrice(List<Object[]> result,Float price){
+		for (Object[] objs : result) {
+			for (Object obj : objs) {
+				try {
+					qr.update("update T_BOM_ItemDetail  set DetailPrice = ?  from  T_BOM_ItemDetail WHERE Id = ?",price,String.valueOf(obj));
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}	
+	}
+	
+	
 	public static void main(String[] args) throws SQLException {
 
-		DataSource dataSource = DBCPUtils.getDataSource();
-		QueryRunner qr = new QueryRunner(dataSource);
 		SimpleDateFormat sdf = new SimpleDateFormat();// 格式化时间
 		SimpleDateFormat sdf2 = new SimpleDateFormat();// 格式化时间
 		SimpleDateFormat sdf3 = new SimpleDateFormat();// 格式化时间
@@ -34,7 +82,8 @@ public class Main {
 		String order = null;
 		String time = null;
 		String newOrder = null;
-		final String PATH = "C:/EBAP/Plugins/EBAP.SalesOrderManagementPlugin/Upload/Orderfile/";
+		
+		
 		while (true) {
 			Calendar calendar = Calendar.getInstance();
 			Date date = calendar.getTime();// 获取当前时间
@@ -102,34 +151,32 @@ public class Main {
 				}
 				
 				
+				List<Object[]> result_LMP_0018_24 = getId(LMP_0018_24);
+				updatePrice(result_LMP_0018_24,LMP_0018_24_PRICE);
+
+
+				List<Object[]> result_LMP_0018_27 = getId(LMP_0018_27);
+				updatePrice(result_LMP_0018_27,LMP_0018_27_PRICE);
+
+				
+				List<Object[]> result_LZQ01_2400  = getId(LZQ01_2400);
+				updatePrice(result_LZQ01_2400,LZQ01_2400_PRICE);
+
+				
+				List<Object[]> result_LZQ01_2700  =	getId(LZQ01_2700);	
+				updatePrice(result_LZQ01_2700,LZQ01_2700_PRICE);
+				
+
+				//阻塞5秒
+				Thread.sleep (5000);
 				
 				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
+	
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 
 		}
+		
 	}
 }

@@ -63,7 +63,7 @@ public class convertType {
 				"  left   join   syscomments   e   on   a.cdefault=e.id   \r\n" + 
 				"  left   join   sys.extended_properties g   on   a.id=g.major_id   and   a.colid=g.minor_id          \r\n" + 
 				"  left   join   sys.extended_properties f   on   d.id=f.major_id   and   f.minor_id   =0   \r\n" + 
-				"  where   d.name='T_BOM_Order'";
+				"  where   d.name='T_BOM_ItemDetail'";
 		//调用方法query,传递结果集实现类MapListHandler
 		//返回值List集合, 存储的是Map集合
 		List<Map<String,Object>> list = qr.query(sql, new MapListHandler());
