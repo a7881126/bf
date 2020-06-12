@@ -29,7 +29,7 @@ public class TEST {
 			Class.forName(driverName);
 
 			dbConn = DriverManager.getConnection(dbURL, userName, userPwd);
-
+	
 			System.out.println("连接数据库成功");
 
 		}

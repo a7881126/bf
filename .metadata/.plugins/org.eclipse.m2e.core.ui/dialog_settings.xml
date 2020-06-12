@@ -2,8 +2,8 @@
 <section name="Workbench">
 	<section name="MavenProjectImportWizardPage">
 		<list key="rootDirectory">
-			<item value="C:\Users\Administrator\eclipse-workspace\aa"/>
 			<item value="C:\Users\Administrator\eclipse-workspace\WXservice"/>
+			<item value="C:\Users\Administrator\eclipse-workspace\aa"/>
 		</list>
 		<list key="projectNameTemplate">
 			<item value="[artifactId]"/>
